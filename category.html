@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="assets/css/global/global.css" media="screen" />
     <title>Categories</title>
 </head>
 <body>
+    <header>
     <h1>Categories</h1>
     <ul>
         <li><a href="index.html">Home</a></li>
@@ -14,18 +16,25 @@
         <li><a href="history.html">History</a></li>
     </ul>
 
-    <form action="">
-        <label for="category-name">Category name:</label>
-        <input type="text">
-        </br> <!-- trocar br por outra tag -->
-        <label for="tax">Tax:</label>
-        <input type="text">
-        </br> <!-- trocar br por outra tag -->
-       
-        <button type="button">Add Category</button>
-    </form>
+    </header>
+  
+    <div class="container">
+    
+        <div class="div1">  
+            <form action="" method="get">
+                <input type="text" id="product" name="product" placeholder="Category name">
+                <div class="conponents">
+                    <input type="text" id="amount" name="amount" placeholder="Tax">
 
-    <table>
+                </div>
+    
+                <button type="button" class="add-product">Add Category</button>
+            </form>
+        </div>
+        <hr class="division">
+        <div class="div2">
+
+        <table>
         <tr>
             <td><h3>Code</h3></td>
             <td><h3>Category</h3></td>
@@ -35,15 +44,17 @@
             <td>001</td>
             <td>Food</td>
             <td>10%</td>
-            <td><button>delete</button></td>
+            <td><button class="delete">delete</button></td>
         </tr>
         <tr>
             <td>002</td>
             <td>Eletro</td>
             <td>60%</td>
-            <td><button>delete</button></td>
+            <td><button class="delete">delete</button></td>
         </tr>
-    </table>
-
+        </table>
+        </div>
+    
+    </div>
 </body>
 </html>
