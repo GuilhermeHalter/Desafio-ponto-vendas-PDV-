@@ -18,70 +18,69 @@
     </ul>
     </header>
 
-    <div class="container">
+    <main>
     
-    <div class="div1">  
-        <form action="" method="get">
-            <input type="text" id="product" name="product" placeholder="Product">
-            <div class="conponents">
-                <input type="text" id="amount" name="amount" placeholder="Amount">
-           
-                <input type="text" id="tax-value" name="tax-value" placeholder="Tax">  
+            <div class="div1">  
+                <form action="" method="get">
+                    <input type="text" id="product" name="product" placeholder="Product">
+                    <div class="conponents">
+                        <input type="text" id="amount" name="amount" placeholder="Amount">
+                   
+                        <input type="text" id="tax-value" name="tax-value" placeholder="Tax">  
+                    
+                        <input type="text" id="unit-price" name="unit-price" placeholder="Price">
+                    </div>
+        
+                    <button type="button" class="add-product">Add Product</button>
+                </form>
+            </div>
+            <hr class="division">
+            <div class="div2">
+                <table>
+                    <tr>
+                        <td><h3>Product</h3></td> 
+                        <td><h3>Unit price</h3></td>
+                        <td><h3>Amount</h3></td>
+                        <td><h3>Total</h3></td>
+                    </tr>
+                   
+                    <tr>
+                        <td>Rice</td>
+                        <td>R$20.00</td>
+                        <td>2</td>
+                        <td>40.00</td>
+                        <td><button class="delete">delete</button></td>
+                    </tr> 
+                    <tr>
+                        <td>Beans</td>
+                        <td>R$9.00</td>
+                        <td>1</td>
+                        <td>9.00</td>
+                        <td><button class="delete">delete</button></td>
+                    </tr>
+                </table>
             
-                <input type="text" id="unit-price" name="unit-price" placeholder="Price">
+                <form action="" method="get">
+                    <div class="form-carrinho">
+                    <div class="tax-carrinho">
+                        <label for="Tax">Tax:</label>
+                        <input type="text" placeholder="$3.00">
+                    </div>
+                    <div class="total-carrinho"> 
+                        <label for="Total">Total:</label>
+                        <input type="text" placeholder="$49.00">
+                    </div>
+        
+                    <div class="check">
+                        <button type="button" class="cancel">Cancel</button>
+                        <button type="button" class="finish">Finish</button>
+                    </div>
+                   
+                    </div>
+                  
+                </form>
             </div>
-
-            <button type="button" class="add-product">Add Product</button>
-        </form>
-    </div>
-    <hr class="division">
-    <div class="div2">
-        <table>
-            <tr>
-                <td><h3>Product</h3></td> 
-                <td><h3>Unit price</h3></td>
-                <td><h3>Amount</h3></td>
-                <td><h3>Total</h3></td>
-            </tr>
-           
-            <tr>
-                <td>Rice</td>
-                <td>R$20.00</td>
-                <td>2</td>
-                <td>40.00</td>
-                <td><button class="delete">delete</button></td>
-            </tr> 
-            <tr>
-                <td>Beans</td>
-                <td>R$9.00</td>
-                <td>1</td>
-                <td>9.00</td>
-                <td><button class="delete">delete</button></td>
-            </tr>
-        </table>
-    
-        <form action="" method="get">
-            <div class="form-carrinho">
-            <div class="tax-carrinho">
-                <label for="Tax">Tax:</label>
-                <input type="text" placeholder="$3.00">
-            </div>
-            <div class="total-carrinho"> 
-                <label for="Total">Total:</label>
-                <input type="text" placeholder="$49.00">
-            </div>
-
-            <div class="check">
-                <button type="button" class="cancel">Cancel</button>
-                <button type="button" class="finish">Finish</button>
-            </div>
-           
-            </div>
-          
-        </form>
-    </div>
-
-    </div>
-   
+        
+    </main>
 </body>
 </html>
