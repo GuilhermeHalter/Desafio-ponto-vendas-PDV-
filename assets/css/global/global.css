@@ -65,7 +65,7 @@ input{
     max-width: 50%;
 }
 .div2{
-    min-width: 50%;
+    min-width: 45%;
     max-width: 50%;
 }
 
@@ -109,6 +109,13 @@ form{
     border-radius: 3px;
     margin-left: 10px;
 }
+.add-product:hover{
+    cursor: pointer;
+    transition: 1s;
+    color: #7C68FA;
+    border: solid 1px#7C68FA;
+    background-color: white;
+}
 
 .tax-carrinho input{
     border: none;
@@ -127,6 +134,13 @@ form{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 }
+.cancel:hover{
+    cursor: pointer;
+    transition: 1s;
+    color: #da5959;
+    border: solid 1px #da5959;
+    background-color: white;
+}
 
 .finish{
     width: 250px;
@@ -136,13 +150,45 @@ form{
     border-radius: 3px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+.finish:hover{
+    cursor: pointer;
+    transition: 1s;
+    color: #7C68FA;
+    border: solid 1px#7C68FA;
+    background-color: white;
+}
+
 .delete{
     width: 100px;
     height: 30px;
     background-color:  #7C68FA;
     border: solid 1px gray;
     border-radius: 3px;
+    
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.delete:hover{
+    cursor: pointer;
+    transition: 1s;
+    color: #7C68FA;
+    border: solid 1px#7C68FA;
+    background-color: white;
+}
+
+.views{
+    width: 100px;
+    height: 30px;
+    background-color:  #7C68FA;
+    border: solid 1px gray;
+    border-radius: 3px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.views:hover{
+    cursor: pointer;
+    transition: 1s;
+    color: #7C68FA;
+    border: solid 1px#7C68FA;
+    background-color: white;
 }
 
 .check{
@@ -152,14 +198,15 @@ form{
 }
 
 .form-carrinho{
-    display: grid;
-    justify-content: end;
-    width: 50%;
-    align-items: end;
-    text-align: end;
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    min-width: 10%;
+    max-width: 100%;
     position: relative;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    top: 33.5rem;
+    margin-right: 10px;
+    top: 31rem;
 }
 table {
     display: flex;
