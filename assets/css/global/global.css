@@ -1,7 +1,7 @@
 header{
     display: flex;
     align-items: center;
-    background-color: rgb(148, 111, 207);
+    background-color: #7C68FA;
     margin-bottom: 15px;
 }
 
@@ -22,8 +22,8 @@ li{
     list-style: none;
     margin-left: 10px;
 }
-hr{
-    height: 20rem;
+.division{
+    height: 830px;
 }
 .container{
     display: inline flex;
@@ -34,8 +34,14 @@ input{
     margin-bottom: 10px;
     margin-left: 10px;
 }
+
+.conponents{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+}
+
 #product{
-    width: 570px;
+    width: 896px;
     height: 25px;
     font-size: 15px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -52,7 +58,7 @@ input{
 }
 
 #amount{
-    width: 285px;
+    width: 500px;
     height: 25px;
     font-size: 15px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -61,7 +67,7 @@ input{
     border-radius: 3px;
 }
 #tax-value{
-    width: 120px;
+    width: 170px;
     height: 25px;
     font-size: 15px;
     background-color: rgb(231, 231, 231);
@@ -70,7 +76,7 @@ input{
     border-radius: 3px;
 }
 #unit-price{
-    width: 120px;
+    width: 150px;
     background-color: rgb(231, 231, 231);
     height: 25px;
     font-size: 15px;
@@ -78,13 +84,84 @@ input{
     border: solid 1px gray;
     border-radius: 3px;
 }
+form{
+    width: 930px;
+}
 
 .add-product{
-    background-color: rgb(148, 111, 207);
-    width: 570px;
+    background-color:  #7C68FA;
+    width: 900px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     height: 30px;
     border: solid 1px gray;
     border-radius: 3px;
     margin-left: 10px;
+}
+
+.tax-carrinho input{
+    border: none;
+}
+
+.total-carrinho input{
+    border: none;
+}
+
+.cancel{
+    width: 250px;
+    height: 30px;
+    margin-right: 10px;
+    border: solid 1px gray;
+    border-radius: 3px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+.finish{
+    width: 250px;
+    height: 30px;
+    background-color:  #7C68FA;
+    border: solid 1px gray;
+    border-radius: 3px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.delete{
+    width: 100px;
+    height: 30px;
+    background-color:  #7C68FA;
+    border: solid 1px gray;
+    border-radius: 3px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.check{
+    display: flex;
+    justify-content: end;
+    margin-top: 40px;
+}
+
+.form-carrinho{
+    display: grid;
+    justify-content: end;
+    align-items: end;
+    text-align: end;
+    position: relative;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    top: 33.5rem;
+}
+table {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-left: 20px;
+    border-collapse: collapse;
+    border-top: none;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+  }
+th,
+td { 
+    border: 1px solid rgb(160 160 160);
+    border-top: none;
+    border-left: none;
+    padding: 10px 50px;
+    align-items: center;
 }
