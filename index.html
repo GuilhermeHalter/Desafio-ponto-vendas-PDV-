@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponto de vendas</title>
+</head>
+<body>
+
+    <h1>Suite Store</h1>
+
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product.html">Products</a></li>
+        <li><a href="category.html">Categories</a></li>
+        <li><a href="history.html">History</a></li>
+    </ul>
+    
+    <form action="" method="get">
+        <label for="Product">Product:</label>
+        <select name="product" id="product">
+            <option value="object1">1</option>
+            <option value="objetc2">2</option>
+            <option value="objetc3">3</option>
+        </select>
+        </br> <!-- trocar br por outra tag -->
+        <label for="Amount">Amount:</label>
+        <input type="text" id="amount" name="amount">
+        </br> <!-- trocar br por outra tag -->
+        <label for="Tax-value">Tax value:</label>
+        <input type="text" id="tax-value" name="tax-value">
+        </br> <!-- trocar br por outra tag -->
+        <label for="Unit-price">Unite price:</label>
+        <input type="text" id="unit-price" name="unit-price">
+        </br> <!-- trocar br por outra tag -->
+        <button type="button">Add Product</button>
+    </form>
+
+    <table>
+        <tr>
+            <td>product</td>
+            <td>Unit price</td>
+            <td>Amount</td>
+            <td>Total</td>
+        </tr>
+        <tr>
+            <td>Rice</td>
+            <td>R$20.00</td>
+            <td>2</td>
+            <td>40.00</td>
+            <td><button>delete</button></td>
+        </tr>
+        <tr>
+            <td>Beans</td>
+            <td>R$9.00</td>
+            <td>1</td>
+            <td>9.00</td>
+            <td><button>delete</button></td>
+        </tr>
+    </table>
+
+    <form action="" method="get">
+        <label for="Tax">Tax:</label>
+        <input type="text" placeholder="$3.00">
+        </br> <!-- trocar br por outra tag -->
+        <label for="Total">Total:</label>
+        <input type="text" placeholder="$49.00">
+        </br> <!-- trocar br por outra tag -->
+        <button type="button">Cancel</button>
+        <button type="button">Finish</button>
+    </form>
+
+</body>
+</html>
