@@ -7,5 +7,58 @@
 </head>
 <body>
     <h1>Product</h1>
+
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product.html">Products</a></li>
+        <li><a href="category.html">Categories</a></li>
+        <li><a href="history.html">History</a></li>
+    </ul>
+
+    <form action="">
+        <label for="product-name">Product name:</label>
+        <input type="text">
+        </br> <!-- trocar br por outra tag -->
+        <label for="amount">Amount:</label>
+        <input type="text">
+        </br> <!-- trocar br por outra tag -->
+        <label for="unit-price">Unit price:</label>
+        <input type="text">
+        </br> <!-- trocar br por outra tag -->
+        <label for="category">Category:</label>
+        <select name="categories" id="categories">
+            <option value="object1">1</option>
+            <option value="objetc2">2</option>
+            <option value="objetc3">3</option>
+        </select>
+        <button type="button">Add product</button>
+    </form>
+
+    <table>
+        <tr>
+            <td><h3>Code</h3></td>
+            <td><h3>Product</h3></td>
+            <td><h3>Amount</h3></td>
+            <td><h3>Unit price</h3></td>
+            <td><h3>Category</h3></td>
+        </tr>
+        <tr>
+            <td>001</td>
+            <td>Rice</td>
+            <td>10</td>
+            <td>20.00</td>
+            <td>food</td>
+            <td><button>delete</button></td>
+        </tr>
+        <tr>
+            <td>002</td>
+            <td>Beans</td>
+            <td>1</td>
+            <td>9.00</td>
+            <td>food</td>
+            <td><button>delete</button></td>
+        </tr>
+    </table>
+
 </body>
 </html>
