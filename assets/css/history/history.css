@@ -1,0 +1,16 @@
+.table-history {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-left: 20px;
+    border-collapse: collapse;
+    border: 1px solid gray;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+  }
+th,
+td { 
+    border: 1px solid rgb(160 160 160);
+    border-left: none;
+    padding: 10px 50px;
+    align-items: center;
+}
