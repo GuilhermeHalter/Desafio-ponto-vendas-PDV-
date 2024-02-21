@@ -12,8 +12,15 @@ header{
     margin-bottom: 15px;
 }
 
+header div{
+    display: flex;
+    width: 100%;
+    margin-inline-start: 10%;
+}
+
 h1{
     margin-left: 10px;
+    position: absolute;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
@@ -27,11 +34,12 @@ a{
 li{
     display: inline-block;
     list-style: none;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 .division{
     max-width: 50%;
     height: 830px;
+    margin: 0px;
 }
 main{
     display: flex;
@@ -65,8 +73,8 @@ input{
     max-width: 50%;
 }
 .div2{
-    min-width: 45%;
-    max-width: 50%;
+    min-width: 20%;
+    max-width: 100%;
 }
 
 #amount{
@@ -164,7 +172,6 @@ form{
     background-color:  #7C68FA;
     border: solid 1px gray;
     border-radius: 3px;
-    
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .delete:hover{
@@ -173,6 +180,10 @@ form{
     color: #7C68FA;
     border: solid 1px#7C68FA;
     background-color: white;
+}
+
+.button-table{
+    border: none;
 }
 
 .views{
@@ -195,18 +206,27 @@ form{
     display: flex;
     justify-content: end;
     margin-top: 40px;
+    min-width: 20%;
+    max-width: 100%;
 }
 
 .form-carrinho{
     display:flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
-    min-width: 10%;
+    min-width: 20%;
     max-width: 100%;
     position: relative;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin-right: 10px;
     top: 31rem;
+
+}
+
+.teste{
+    display: flex;
+    min-width: 10%;
+    max-width: 100%;
 }
 table {
     display: flex;
@@ -228,4 +248,11 @@ td {
     border-left: none;
     padding: 20px 30px;
     align-items: center;
+}
+tbody{
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+    min-width: 10%;
+    max-width: 100%;
 }
