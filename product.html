@@ -9,8 +9,10 @@
 </head>
 <body>
 
+    <script src="assets/js/functions.js"></script>
+
     <header>
-    <h1>Product</h1>
+    <h1>Suite Store</h1>
     <div>
         <ul>
             <li><a href="index.html">Home</a></li>
@@ -31,19 +33,19 @@
                 <div class="conponents">
                     <input type="text" id="amount" name="amount" placeholder="Amount">
                
-                    <input type="text" id="tax-value" name="tax-value" placeholder="Unit price">  
+                    <input type="text" id="unit-price" name="unit-price" placeholder="Unit price">  
                 
-                    <input type="text" id="unit-price" name="unit-price" placeholder="Category">
+                    <input type="text" id="category" name="category" placeholder="Category">
                 </div>
     
-                <button type="button" class="add-product">Add Product</button>
+                <button type="button" class="Update" onclick="onFormSubmit()">Add Product</button>
             </form>
         </div>
 
     </div>
     <hr class="division">
     <div class="div2">
-    <table>
+    <table id="crudTable">
         <tr>
             <td><h3>Code</h3></td>
             <td><h3>Product</h3></td>
@@ -51,24 +53,13 @@
             <td><h3>Unit price</h3></td>
             <td><h3>Category</h3></td>
         </tr>
-        <tr>
-            <td>001</td>
-            <td>Rice</td>
-            <td>10</td>
-            <td>20.00</td>
-            <td>food</td>
-            <td class="button-table"><button class="delete">delete</button></td>
-        </tr>
-        <tr>
-            <td>002</td>
-            <td>Beans</td>
-            <td>1</td>
-            <td>9.00</td>
-            <td>food</td>
-            <td class="button-table"><button class="delete">delete</button></td>
+        <tr >
+            
         </tr>
     </table>
+    <tbody>
 
+    </tbody>
 
     </main>
 
