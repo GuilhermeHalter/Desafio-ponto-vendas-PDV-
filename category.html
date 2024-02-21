@@ -8,6 +8,7 @@
 </head>
 <body>
     <header>
+    <script src="assets/js/functionsCategory.js"></script>
     <h1>Suite Store</h1>
     <div>
         <ul>
@@ -23,19 +24,19 @@
     
         <div class="div1">  
             <form action="" method="get">
-                <input type="text" id="product" name="product" placeholder="Category name">
+                <input type="text" id="category" name="categoryc" placeholder="Category name">
                 <div class="conponents">
-                    <input type="text" id="amount" name="amount" placeholder="Tax">
+                    <input type="text" id="tax" name="tax" placeholder="Tax">
 
                 </div>
     
-                <button type="button" class="add-product">Add Category</button>
+                <button type="button" class="add-product" onclick="onFormSubmit()">Add Category</button>
             </form>
         </div>
         <hr class="division">
         <div class="div2">
 
-        <table>
+        <table id="crudTable">
         <tr>
             <td><h3>Code</h3></td>
             <td><h3>Category</h3></td>
@@ -54,6 +55,9 @@
             <td  class="button-table"><button class="delete">delete</button></td>
         </tr>
         </table>
+        <tbody>
+
+        </tbody>
         </div>
     
     </main>
