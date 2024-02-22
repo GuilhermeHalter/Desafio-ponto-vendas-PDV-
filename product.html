@@ -4,64 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="assets/css/global/global.css" media="screen" />
-
     <title>Product</title>
 </head>
 <body>
 
-    <script src="assets/js/functionsProduct.js" defer ></script>
-
     <header>
-    <h1>Suite Store</h1>
-    <div>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="product.html">Products</a></li>
-            <li><a href="category.html">Categories</a></li>
-            <li><a href="history.html">History</a></li>
-        </ul>
-    </div>
+        <h1>Suite Store</h1>
+        <div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product.html">Products</a></li>
+                <li><a href="category.html">Categories</a></li>
+                <li><a href="history.html">History</a></li>
+            </ul>
+        </div>
     </header>
-   
 
     <main>
-    
-
         <div class="div1">  
-            <form action="" method="get">
-                <input type="text" id="product" name="product" placeholder="Product name">
-                <div class="conponents">
-                    <input type="text" id="amount" name="amount" placeholder="Amount">
-               
-                    <input type="text" id="unit-price" name="unit-price" placeholder="Unit price">  
-                
-                    <input type="text" id="category" name="category" placeholder="Category">
-                </div>
-    
-                <button type="submit" class="Update" onclick="onFormSubmit()">Add Product</button>
+            <form method="get" id="form">
+                <input type="text" id="product" name="product" class="modal-field" placeholder="Product name" required>
+                <input type="text" id="amount" name="amount" class="modal-field" placeholder="Amount" required>
+                <input type="text" id="unit-price" name="unit-price" class="modal-field" placeholder="Unit price" required>
+                <input type="text" id="category" name="category" class="modal-field" placeholder="Category" required>
+                <button type="submit" class="Update" id="salvar">Add Product</button>
             </form>
         </div>
 
-    </div>
-    <hr class="division">
-    <div class="div2">
-    <table id="crudTable">
-        <tr>
-            <td><h3>Code</h3></td>
-            <td><h3>Product</h3></td>
-            <td><h3>Amount</h3></td>
-            <td><h3>Unit price</h3></td>
-            <td><h3>Category</h3></td>
-        </tr>
-        <tr >
-            
-        </tr>
-    </table>
-    <tbody>
-
-    </tbody>
-
+        <hr class="division">
+        
+        <div class="div2">
+            <table id="crudTable">
+                <thead>
+                    <tr class="titles">
+                        <th>Product</th>
+                        <th>Amount</th>
+                        <th>Unit price</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div id="container">
+                <span id="view"></span>
+            </div>
+        </div>
     </main>
+
+    <script src="assets/js/functionsProduct.js" defer ></script>
 
 </body>
 </html>
+

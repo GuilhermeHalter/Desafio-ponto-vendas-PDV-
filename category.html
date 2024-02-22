@@ -23,14 +23,14 @@
     <main>
     
         <div class="div1">  
-            <form action="" method="get">
-                <input type="text" id="category" name="categoryc" placeholder="Category name">
+            <form action="" method="get" id="form">
+                <input type="text" id="category" name="categoryc" class="modal-field" placeholder="Category name">
                 <div class="conponents">
-                    <input type="text" id="tax" name="tax" placeholder="Tax">
+                    <input type="text" id="tax" name="tax" class="modal-field" placeholder="Tax">
 
                 </div>
     
-                <button type="button" class="add-product" onclick="onFormSubmit()">Add Category</button>
+                <button type="submit" class="Update" id="salvar">Add Category</button>
             </form>
         </div>
         <hr class="division">
@@ -54,10 +54,11 @@
             <td>60%</td>
             <td  class="button-table"><button class="delete">delete</button></td>
         </tr>
-        </table>
         <tbody>
 
         </tbody>
+        </table>
+        
         </div>
     
     </main>

@@ -1,72 +1,126 @@
-var selectedRow = null
-
-function onFormSubmit(e) {
-        e.preventDefault();
-        var formData = readFormData();
-        if (selectedRow == null){
-            insertNewRecord(formData);
-		}
-        else{
-            updateRecord(formData);
-		}
-        resetForm();    
-}
-
-//Retrieve the data
-function readFormData() {
-    var formData = {};
-    formData["product"] = document.getElementById("product").value;
-    formData["amount"] = document.getElementById("amount").value;
-    formData["unit"] = document.getElementById("unit-price").value;
-    formData["category"] = document.getElementById("category").value;
-    return formData;
-}
-
-//Insert the data
-function insertNewRecord(data) {
-    var table = document.getElementById("crudTable").getElementsByTagName('tbody')[0];
-    var newRow = table.insertRow(table.length);
-    cell1 = newRow.insertCell(0);
-		cell1.innerHTML = data.product;
-    cell2 = newRow.insertCell(1);
-		cell2.innerHTML = data.amount;
-    cell3 = newRow.insertCell(2);
-		cell3.innerHTML = data.unit;
-    cell4 = newRow.insertCell(3);
-		cell4.innerHTML = data.category;
-    cell4 = newRow.insertCell(4);
-        cell4.innerHTML = `<button onClick="onEdit(this)">Edit</button> <button onClick="onDelete(this)">Delete</button>`;
-}
-
-//Edit the data
-function onEdit(td) {
-    selectedRow = td.parentElement.parentElement;
-    document.getElementById("product").value = selectedRow.cells[0].innerHTML;
-    document.getElementById("amount").value = selectedRow.cells[1].innerHTML;
-    document.getElementById("unit-price").value = selectedRow.cells[2].innerHTML;
-    document.getElementById("category").value = selectedRow.cells[3].innerHTML;
-}
-function updateRecord(formData) {
-    selectedRow.cells[0].innerHTML = formData.product;
-    selectedRow.cells[1].innerHTML = formData.amount;
-    selectedRow.cells[2].innerHTML = formData.unit;
-    selectedRow.cells[3].innerHTML = formData.category;
-}
-
-//Delete the data
-function onDelete(td) {
-    if (confirm('Do you want to delete this record?')) {
-        row = td.parentElement.parentElement;
-        document.getElementById('crudTable').deleteRow(row.rowIndex);
-        resetForm();
+const tempProduct = {
+    product: "1",
+    amount: "2",
+    unit: "3",
+    category: "5",
+  };
+  
+  const getLocalStorage = () =>
+    JSON.parse(localStorage.getItem("db_produto")) ?? [];
+  
+  const setLocalStorage = (dbProduto) =>
+    localStorage.setItem("db_produto", JSON.stringify(dbProduto));
+  
+  const createProduct = (product) => {
+    const dbProduto = getLocalStorage();
+    dbProduto.push(product);
+    setLocalStorage(dbProduto);
+  };
+  
+  const readProduct = () => getLocalStorage();
+  
+  const updateProduto = (index, product) => {
+    const dbProduto = readProduct();
+    dbProduto[index] = product;
+    setLocalStorage(dbProduto);
+  };
+  
+  const deleteProduto = (index) => {
+    const dbProduto = readProduct();
+    dbProduto.splice(index, 1);
+    setLocalStorage(dbProduto);
+  };
+  
+  const isValidFields = () => {
+    return document.getElementById("form").reportValidity();
+  };
+  
+  const saveProduct = (e) => {
+    e.preventDefault();
+    if (isValidFields()) {
+      const produto = {
+        product: document.getElementById("product").value,
+        amount: document.getElementById("amount").value,
+        unit: document.getElementById("unit-price").value,
+        category: document.getElementById("category").value,
+      };
+      const index = parseInt(document.getElementById("product").dataset.index);
+      if (isNaN(index)) {
+        createProduct(produto);
+      } else {
+        updateProduto(index, produto);
+      }
+      updateTable();
+      clearFields();
     }
-}
-
-//Reset the data
-function resetForm() {
-    document.getElementById("product").value = '';
-    document.getElementById("amount").value = '';
-    document.getElementById("unit-price").value = '';
-    document.getElementById("category").value = '';
-    selectedRow = null;
-}
+  };
+  
+  const createRow = (produto, index) => {
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td>${produto.product}</td>
+      <td>${produto.amount}</td>
+      <td>${produto.unit}</td>
+      <td>${produto.category}</td>
+      <td>
+        <button type="button" class="button green" id="editar-${index}">Editar</button>
+        <button type="button" class="button red" id="excluir-${index}">Excluir</button>
+      </td>
+      `;
+    document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);
+  };
+  
+  const clearFields = () => {
+    const fields = document.querySelectorAll(".modal-field");
+    fields.forEach((field) => (field.value = ""));
+    document.getElementById("product").dataset.index = "";
+  };
+  
+  const clearTable = () => {
+    const rows = document.querySelectorAll("#crudTable tbody tr");
+    rows.forEach((row) => row.remove());
+  };
+  
+  const fillFields = (product) => {
+    document.getElementById("product").value = product.product;
+    document.getElementById("amount").value = product.amount;
+    document.getElementById("unit-price").value = product.unit;
+    document.getElementById("category").value = product.category;
+    document.getElementById("product").dataset.index = product.index;
+  };
+  
+  const editProduct = (index) => {
+    const product = readProduct()[index];
+    product.index = index;
+    fillFields(product);
+  };
+  
+  const updateTable = () => {
+    const dbProduto = readProduct();
+    clearTable();
+    dbProduto.forEach((produto, index) => createRow(produto, index));
+  };
+  
+  const editDelete = (event) => {
+    if (event.target.tagName === "BUTTON") {
+      const [action, index] = event.target.id.split("-");
+      if (action === "editar") {
+        editProduct(index);
+      } else if (action === "excluir") {
+        const product = readProduct()[index];
+        const response = confirm(`Deseja realmente excluir o produto ${product.product}`);
+        if (response) {
+          deleteProduto(index);
+          updateTable();
+        }
+      }
+    }
+  };
+  
+  updateTable();
+  
+  document.getElementById("salvar").addEventListener("click", saveProduct);
+  
+  document.getElementById("crudTable").querySelector("tbody").addEventListener("click", editDelete);
+  
+  
