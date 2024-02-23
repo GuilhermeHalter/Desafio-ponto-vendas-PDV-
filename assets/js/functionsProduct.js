@@ -1,15 +1,36 @@
+
 const tempProduct = {
     product: "1",
     amount: "2",
     unit: "3",
     category: "5",
   };
+
+  /////////////// Area de teste
+
+  const getLocalStorageCategory = () =>
+      JSON.parse(localStorage.getItem("db_category")) ?? [];
+
+  const readCategory = getLocalStorageCategory();
+
+
+  const categoria = JSON.parse(localStorage.getItem("db_category"));
+  console.log(categoria)
+
+  const selectCategorias = document.getElementById("select");
+
+    categoria.forEach((item) => {
+        const newOption = document.createElement("option");
+        newOption.text = JSON.stringify(item.category);
+
+        selectCategorias.appendChild(newOption);
+    })
+ 
+  //////////////
+
   
   const getLocalStorage = () =>
     JSON.parse(localStorage.getItem("db_produto")) ?? [];
-
-  const getLocalStorageCategory = () =>
-    JSON.parse(localStorage.getItem("db_category")) ?? [];
   
   const setLocalStorage = (dbProduto) =>
     localStorage.setItem("db_produto", JSON.stringify(dbProduto));
@@ -45,13 +66,14 @@ const tempProduct = {
         product: document.getElementById("product").value,
         amount: document.getElementById("amount").value,
         unit: document.getElementById("unit-price").value,
-        category: document.getElementById("category").value,
+        category: document.getElementById("select").value,
       };
       const index = parseInt(document.getElementById("product").dataset.index);
       if (isNaN(index)) {
         createProduct(produto);
       } else {
         updateProduto(index, produto);
+
       }
       updateTable();
       clearFields();
@@ -88,7 +110,7 @@ const tempProduct = {
     document.getElementById("product").value = product.product;
     document.getElementById("amount").value = product.amount;
     document.getElementById("unit-price").value = product.unit;
-    document.getElementById("category").value = product.category;
+    document.getElementById("select").value = product.category;
     document.getElementById("product").dataset.index = product.index;
   };
   
@@ -125,5 +147,4 @@ const tempProduct = {
   document.getElementById("salvar").addEventListener("click", saveProduct);
   
   document.getElementById("crudTable").querySelector("tbody").addEventListener("click", editDelete);
-  
   
