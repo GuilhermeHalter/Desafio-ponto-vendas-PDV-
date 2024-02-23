@@ -7,6 +7,9 @@ const tempProduct = {
   
   const getLocalStorage = () =>
     JSON.parse(localStorage.getItem("db_produto")) ?? [];
+
+  const getLocalStorageCategory = () =>
+    JSON.parse(localStorage.getItem("db_category")) ?? [];
   
   const setLocalStorage = (dbProduto) =>
     localStorage.setItem("db_produto", JSON.stringify(dbProduto));

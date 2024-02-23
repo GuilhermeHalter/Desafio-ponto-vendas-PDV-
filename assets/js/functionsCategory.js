@@ -77,7 +77,7 @@ const tempCategory = {
   
   const fillFields = (category) => {
     document.getElementById("category").value = category.category;
-    document.getElementById("tax").value = category.amount;
+    document.getElementById("tax").value = category.tax;
     document.getElementById("category").dataset.index = category.index;
   };
   

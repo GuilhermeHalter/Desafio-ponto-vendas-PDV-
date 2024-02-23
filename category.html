@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-    <script src="assets/js/functionsCategory.js"></script>
+    
     <h1>Suite Store</h1>
     <div>
         <ul>
@@ -23,10 +23,10 @@
     <main>
     
         <div class="div1">  
-            <form action="" method="get" id="form">
-                <input type="text" id="category" name="categoryc" class="modal-field" placeholder="Category name">
+            <form method="get" id="form">
+                <input type="text" id="category" name="categoryc" class="modal-field" placeholder="Category name" required>
                 <div class="conponents">
-                    <input type="text" id="tax" name="tax" class="modal-field" placeholder="Tax">
+                    <input type="text" id="tax" name="tax" class="modal-field" placeholder="Tax" required>
 
                 </div>
     
@@ -35,32 +35,20 @@
         </div>
         <hr class="division">
         <div class="div2">
-
-        <table id="crudTable">
-        <tr>
-            <td><h3>Code</h3></td>
-            <td><h3>Category</h3></td>
-            <td><h3>Tax</h3></td>
-        </tr>
-        <tr>
-            <td>001</td>
-            <td>Food</td>
-            <td>10%</td>
-            <td  class="button-table"><button class="delete">delete</button></td>
-        </tr>
-        <tr>
-            <td>002</td>
-            <td>Eletro</td>
-            <td>60%</td>
-            <td  class="button-table"><button class="delete">delete</button></td>
-        </tr>
-        <tbody>
-
-        </tbody>
-        </table>
-        
+            <table id="crudTable">
+                <thead>
+                    <tr class="titles">
+                        <th>Category</th>
+                        <th>Tax</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     
     </main>
+
+    <script src="assets/js/functionsCategory.js"></script>
 </body>
 </html>
