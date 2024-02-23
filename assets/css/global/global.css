@@ -39,6 +39,8 @@ a:hover{
     cursor: pointer;
     transition: 1s;
     color: #fff;
+    padding-bottom: 10px;
+    border-bottom: solid 2px white;
 }
 
 h1 {

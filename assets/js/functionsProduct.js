@@ -6,8 +6,6 @@ const tempProduct = {
     category: "5",
   };
 
-  /////////////// Area de teste
-
   const getLocalStorageCategory = () =>
       JSON.parse(localStorage.getItem("db_category")) ?? [];
 
@@ -25,9 +23,6 @@ const tempProduct = {
 
         selectCategorias.appendChild(newOption);
     })
- 
-  //////////////
-
   
   const getLocalStorage = () =>
     JSON.parse(localStorage.getItem("db_produto")) ?? [];

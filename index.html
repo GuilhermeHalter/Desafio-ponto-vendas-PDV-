@@ -23,22 +23,24 @@
     
             <div class="div1">  
                 <form action="" method="get">
-                    <input type="text" id="product" name="product" placeholder="Product">
+                    <select name="" id="select">
+                        <option value="">Produto</option>
+                    </select>
                     <div class="conponents">
-                        <input type="text" id="amount" name="amount" placeholder="Amount">
+                        <input type="text" id="amount" name="amount" placeholder="Amount" required>
                    
-                        <input type="text" id="tax-value" name="tax-value" placeholder="Tax">  
+                        <input type="text" id="tax-value" name="tax-value" placeholder="Tax" required>  
                     
-                        <input type="text" id="unit-price" name="unit-price" placeholder="Price">
+                        <input type="text" id="unit-price" name="unit-price" placeholder="Price" required>
                     </div>
         
-                    <button type="button" class="add-product">Add Product</button>
+                    <button type="button" class="add-product" id="salvar">Add Product</button>
                 </form>
             </div>
             <hr class="division">
             <div class="div2">
                 
-                    <table>
+                    <table id="crudTable">
                   
                         <tr>
                         <div class="teste">
@@ -63,12 +65,16 @@
                             <td class="button-table"><button class="delete">delete</button></td>
                         </div>
                         </tr>
+
+                        <tbody>
+
+                        </tbody>
                     
                     </table>
             
                 
             
-                <form action="" method="get" class="carrinho">
+                <form action="" method="get" class="carrinho" id="form" >
                     <div class="form-carrinho">
                     <div class="tax-carrinho">
                         <label for="Tax">Tax:</label>
@@ -90,5 +96,7 @@
             </div>
         
     </main>
+
+    <script src="assets/js/functionsHome.js"></script>
 </body>
 </html>
