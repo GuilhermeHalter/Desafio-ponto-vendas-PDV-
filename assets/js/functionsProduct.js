@@ -19,7 +19,7 @@ const tempProduct = {
 
     categoria.forEach((item) => {
         const newOption = document.createElement("option");
-        newOption.text = JSON.stringify(item.category);
+        newOption.text = item.category;
 
         selectCategorias.appendChild(newOption);
     })

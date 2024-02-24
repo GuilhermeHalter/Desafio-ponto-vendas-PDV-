@@ -1,30 +1,13 @@
-const getLocalStorageProduct = () =>
-    JSON.parse(localStorage.getItem("db_produto")) ?? [];
 
-const readProduct = getLocalStorageProduct();
+    var produtos = JSON.parse(localStorage.getItem('db_produto')) ?? [];
+    var categorias = JSON.parse(localStorage.getItem('db_category')) ?? [];
 
-const product = JSON.parse(localStorage.getItem("db_produto"));
-console.log(product)
+    var select = document.getElementById('select');
+    produtos.forEach(function (produto) {
+        var option = document.createElement('option');
+        option.textContent = produto.product;
+        option.value = produto.id;
+        select.appendChild(option);
+    });
 
-const selectProduct = document.getElementById("select");
-
-    product.forEach((item) => {
-        const newOption = document.createElement("option");
-        newOption.text = JSON.stringify(item.product);
-
-        selectProduct.appendChild(newOption);
-    })
-
-
-////////// Area de teste
-
-const tax = JSON.parse(localStorage.getItem("db_produto"));
-
-
-
-
-
-/////////
-   
-
-
+    
