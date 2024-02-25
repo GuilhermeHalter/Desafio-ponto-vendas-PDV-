@@ -31,13 +31,14 @@ li {
     margin-left: 20px;
 }
 
-a{
+a {
     text-decoration: none;
     color: black;
 }
-a:hover{
+
+a:hover {
     cursor: pointer;
-    transition: 1s;
+    transition: 0.5s;
     color: #fff;
     padding-bottom: 10px;
     border-bottom: solid 2px white;
@@ -52,25 +53,27 @@ h1 {
 main {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
     max-width: 100%;
     padding: 0 10px;
 }
 
 .div1 {
-    flex: 1 1 60%;
-    max-width: 60%;
-    margin-right: 10px;
+    width: 50%; 
 }
 
 .div2 {
-    flex: 1 1 35%;
-    max-width: 35%;
+    width: 50%; 
 }
 
-form {
-    margin-top: 20px;
+.division {
+    margin-top: 3px;
+    height: 530px;
+    width: 1px; 
+    background-color: #ececec; 
+    margin-left: 10px; 
+    margin-right: 10px; 
 }
+
 
 input[type="text"] {
     width: calc(100% - 20px);
@@ -83,9 +86,51 @@ input[type="text"] {
     box-sizing: border-box;
 }
 
+select {
+    width: calc(100% - 20px);
+    height: 30px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.compra {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+    border-radius: 5px;
+}
+
+.check {    
+    display: flex;
+}
+
+.finish{
+    margin-left: 10px;
+}
+
+
+
+input[type="number"] {
+    width: calc(100% - 20px);
+    height: 30px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+
 button {
     width: 100%;
     height: 40px;
+    margin-top: 10px;
     font-size: 16px;
     font-weight: bold;
     color: #fff;
@@ -112,15 +157,22 @@ th, td {
     text-align: left;
 }
 
-.division {
-    width: 100%;
+.button-table button {
+    background-color: #ff3d00;
+    color: #fff;
     border: none;
-    margin-top: 20px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
 }
+
+.button-table button:hover {
+    background-color: #d32f00;
+}
+
 
 @media only screen and (max-width: 600px) {
     .titles {
         display: none;
     }
 }
-

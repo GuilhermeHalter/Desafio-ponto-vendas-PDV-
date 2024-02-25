@@ -55,7 +55,7 @@ const tempCategory = {
     const newRow = document.createElement("tr");
     newRow.innerHTML = `
       <td>${categoria.category}</td>
-      <td>${categoria.tax}</td>
+      <td>${categoria.tax}%</td>
       <td>
         <button type="button" class="button green" id="editar-${index}">Editar</button>
         <button type="button" class="button red" id="excluir-${index}">Excluir</button>

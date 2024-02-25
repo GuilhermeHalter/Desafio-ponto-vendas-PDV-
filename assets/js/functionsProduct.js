@@ -80,7 +80,7 @@ const tempProduct = {
     newRow.innerHTML = `
       <td>${produto.product}</td>
       <td>${produto.amount}</td>
-      <td>${produto.unit}</td>
+      <td>R$${produto.unit}</td>
       <td>${produto.category}</td>
       <td>
         <button type="button" class="button green" id="editar-${index}">Editar</button>
@@ -103,8 +103,8 @@ const tempProduct = {
   
   const fillFields = (product) => {
     document.getElementById("product").value = product.product;
-    document.getElementById("amount").value = product.amount;
-    document.getElementById("unit-price").value = product.unit;
+    parseInt(document.getElementById("amount").value) = product.amount;
+    parseFloat(document.getElementById("unit-price").value) = product.unit;
     document.getElementById("select").value = product.category;
     document.getElementById("product").dataset.index = product.index;
   };
