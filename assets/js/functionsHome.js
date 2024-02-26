@@ -123,21 +123,18 @@ const deleteTable = (index, e) => {
 const finishCarrinho = () =>{
         const dbHome = getLocalStorage();
         const dbCarrinho = getLocalStorageCarrinho();
-        dbCarrinho.push(dbHome);
-        if(dbHome == []){
-            alert("array vazio");
+        
+        if(dbHome == 0){
+            alert("Faça alguma compra antes de finalizar")
         }else{
+            dbCarrinho.push(dbHome);
             setLocalStorageCarrinho(dbCarrinho);
         }
-        
     
         deleteTable()
         clearTable()
-        updateTable();
 }
     
-
-
 const isValidFields = () => {
 return document.getElementById("form").reportValidity();
 };
