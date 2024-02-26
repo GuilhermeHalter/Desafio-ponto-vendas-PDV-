@@ -103,8 +103,8 @@ const tempProduct = {
   
   const fillFields = (product) => {
     document.getElementById("product").value = product.product;
-    parseInt(document.getElementById("amount").value) = product.amount;
-    parseFloat(document.getElementById("unit-price").value) = product.unit;
+    document.getElementById("amount").value = product.amount;
+    document.getElementById("unit-price").value = product.unit;
     document.getElementById("select").value = product.category;
     document.getElementById("product").dataset.index = product.index;
   };

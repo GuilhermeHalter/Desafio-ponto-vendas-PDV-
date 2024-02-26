@@ -7,17 +7,11 @@ produtos.forEach(function (produto) {
     option.textContent = produto.product;
     option.value = produto.id;
     select.appendChild(option);
+ 
 });
 
-
-const categoria = categorias.splice(item => item.id === produtos.categoryId);
- if(produtos.category === categoria.category){
-    console.log("true")
- }else{
-    console.log("false")
- }
-
-
 /////////// area de teste
+
+
 
 //////////
