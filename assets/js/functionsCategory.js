@@ -40,14 +40,21 @@ const tempCategory = {
         category: document.getElementById("category").value,
         tax: document.getElementById("tax").value,
       };
+      if(tax.value < 0){
+        alert("Por favor insira um valor positivo")
+        deleteCategory(index);
+      }
       const index = parseInt(document.getElementById("category").dataset.index);
       if (isNaN(index)) {
         createCategory(categoria);
       } else {
         updateCategory(index, categoria);
       }
+
+ 
       updateTable();
       clearFields();
+      
     }
   };
   
