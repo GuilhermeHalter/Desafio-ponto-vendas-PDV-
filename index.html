@@ -22,17 +22,15 @@
     <main>
 
         <div class="div1">
-            <form action="" method="get">
+            <form  method="get" id="form" class="form">
                 <select name="" id="select">
                     <option value="">Produtos</option>
                 </select>
-                <div class="conponents">
                     <input type="text" id="amount" name="amount" placeholder="Amount" required>
 
                     <input type="text" id="tax-value" name="tax-value" placeholder="Tax" required>
 
                     <input type="text" id="unit-price" name="unit-price" placeholder="Price" required>
-                </div>
 
                 <button type="button" class="add-product" id="salvar">Add Product</button>
             </form>
@@ -41,30 +39,14 @@
         <div class="div2">
 
             <table id="crudTable">
-
-                <tr>
-                    <div class="teste">
+                <thead>
+                    <tr class="titles"> 
                         <td><h3>Product</h3></td>
                         <td><h3>Unit price</h3></td>
                         <td><h3>Amount</h3></td>
                         <td><h3>Total</h3></td>
-                </tr>
-
-                <tr>
-                    <td>Rice</td>
-                    <td>R$20.00</td>
-                    <td>2</td>
-                    <td>40.00</td>
-                    <td class="button-table"><button class="delete">delete</button></td>
-                </tr>
-                <tr>
-                    <td>Beans</td>
-                    <td>R$9.00</td>
-                    <td>1</td>
-                    <td>9.00</td>
-                    <td class="button-table"><button class="delete">delete</button></td>
-                </tr>
-
+                    </tr>
+                </thead>
                 <tbody>
 
                 </tbody>
@@ -73,18 +55,18 @@
 
             <form method="get" class="compra" id="compra" >
                 <div class="form-carrinho">
-                    <div class="tax-carrinho">
+                    <div class="tax">
                         <label for="Tax">Tax:</label>
-                        <input type="text" placeholder="$3.00">
+                        <input type="text" id="tax-carrinho">
                     </div>
-                    <div class="total-carrinho">
+                    <div class="total">
                         <label for="Total">Total:</label>
-                        <input type="text" placeholder="$49.00">
+                        <input type="text">
                     </div>
 
                     <div class="check">
-                        <button type="button" class="cancel">Cancel</button>
-                        <button type="button" class="finish">Finish</button>
+                        <button type="button" class="cancel" id="cancel">Cancel</button>
+                        <button type="button" class="finish" id="finish">Finish</button>
                     </div>
 
                 </div>
