@@ -42,7 +42,7 @@ const tempCategory = {
       };
       if(tax.value < 0){
         alert("Por favor insira um valor positivo")
-        deleteCategory(index);
+        deleteCategory(index, -1);
       }
       const index = parseInt(document.getElementById("category").dataset.index);
       if (isNaN(index)) {
@@ -51,7 +51,7 @@ const tempCategory = {
         updateCategory(index, categoria);
       }
 
- 
+      
       updateTable();
       clearFields();
       
