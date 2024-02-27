@@ -1,54 +1,25 @@
-const getLocalStorageCarrinho = () =>
-  JSON.parse(localStorage.getItem("db_carrinho")) ?? [];
+const getHistory = () => JSON.parse(localStorage.getItem('db_category')) ?? [];
+const setHistory = (history) => localStorage.setItem('db_category', JSON.stringify(history));
 
-const readProduct = () => getLocalStorageCarrinho();
+const renderHistory = () => {
+  const history = getHistory();
+  const tbody = document.querySelector('tbody');
+  tbody.innerHTML = '';
 
-var carrinho = JSON.parse(localStorage.getItem("db_carrinho")) ?? [];
-
-
-const produto = {
-    product: 2,
-    tax: 1,
-    total: 3,
+  history.forEach((item) => {
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+    <td>${item.index}</td>
+    <td>${item.tax}</td>
+    <td>${item.total}</td>
+    <td>
+    <button>
+    <a href="view-details.html?item=${item.id}" class="secundary-button">Detalhes
+    </button>
+    </td>
+    `;
+    tbody.appendChild(newRow);
+  });
 };
 
-console.log(produto)
-
-const createRow = (produto) => {
-  const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-      <td>${produto.tax}</td>
-      <td>R$${produto.total}</td>
-      
-      <td>
-      <button>
-      <a href="view-details.html?item=${produto.product}" class="secundary-button">Detalhes
-      </button>
-      </td>
-      `;
-
-  document
-    .getElementById("crudTable")
-    .querySelector("tbody")
-    .appendChild(newRow);
-};
-console.log(createRow());
-
-const clearFields = () => {
-  const fields = document.querySelectorAll(".modal-field");
-  fields.forEach((field) => (field.value = ""));
-  document.getElementById("select").dataset.index = "";
-};
-
-const clearTable = () => {
-  const rows = document.querySelectorAll("#crudTable tbody tr");
-  rows.forEach((row) => row.remove());
-};
-
-const updateTable = () => {
-  const dbCarrinho = readProduct();
-  clearTable();
-  dbCarrinho.forEach((produto, index) => createRow(produto, index));
-};
-
-updateTable();
+renderHistory();

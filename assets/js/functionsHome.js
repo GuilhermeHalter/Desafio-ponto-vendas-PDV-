@@ -7,7 +7,8 @@ const setLocalStorage = (dbHome) =>
 
 const getLocalStorage = () => JSON.parse(localStorage.getItem("db_home")) ?? [];
 
-const getLocalStorageCategory = () => JSON.parse(localStorage.getItem("db_category")) ?? [];
+const getLocalStorageCategory = () =>
+  JSON.parse(localStorage.getItem("db_category")) ?? [];
 
 const setLocalStorageCarrinho = (dbCarrinho) =>
   localStorage.setItem("db_carrinho", JSON.stringify(dbCarrinho));
@@ -34,28 +35,23 @@ produtos.forEach(function (produto) {
   select.appendChild(option);
 });
 
-/////// area de teste
-
 
 const calculateTotalAndTax = () => {
-  const cart = getLocalStorageProduto();
-  const cart2 = getLocalStorageCategory()
+  const cart = getLocalStorage();
 
-  const total = cart.reduce((acc, produto) => acc + produto.unit * produto.amount, 0);
-  const tax = cart2.reduce((acc, produto) => acc + produto.tax * produto.amount, 0);
+  const total = cart.reduce((acc, item) => acc + item.unit * item.amount, 0);
+  const tax = cart.reduce((acc, item) => acc + item.tax * item.amount, 0);
   return { total, tax };
-  console.log(total, tax)
 };
 
 const updateTotalAndTaxFields = () => {
   const { total, tax } = calculateTotalAndTax();
-  document.getElementById('tax-carrinho').value = `${tax.toFixed(2)}`;
-  document.getElementById('total-carrinho').value = `${(total + tax).toFixed(2)}`;
+  document.getElementById("tax-carrinho").value = `${tax.toFixed(2)}`;
+  document.getElementById("total-carrinho").value = `${(total + tax).toFixed(
+    2
+  )}`;
 };
 
-console.log(calculateTotalAndTax())
-
-////////
 
 select.addEventListener("change", function () {
   var selectedProductName = this.value;
@@ -99,8 +95,6 @@ select.addEventListener("change", function () {
   }
 });
 
-
-
 const createProduct = (product) => {
   const dbHome = getLocalStorage();
   dbHome.push(product);
@@ -121,76 +115,75 @@ const deleteProduto = (index) => {
   setLocalStorage(dbHome);
 };
 
-const deleteTable = (index) => {
-  const dbHome = readProduct();
-  dbHome.splice(index);
-  setLocalStorage(dbHome);
-
-  clearTable();
-};
-
-const finishCarrinho = () => {
-  const dbHome = getLocalStorage();
-  const dbCarrinho = getLocalStorageCarrinho();
-
-  if (dbHome == 0) {
-    alert("Faça alguma compra antes de finalizar");
-  } else {
-    dbCarrinho.push(dbHome);
-    setLocalStorageCarrinho(dbCarrinho);
-    alert("Compra realizada com sucesso!!!");
-  }
-
-  deleteTable();
-  clearTable();
-};
-
-/*const amountStock = (index) =>{
-    
-    var foundAmountHome = home.find(function(product){
-        return product.amount
-    })
-
-    var foundAmount = produtos.find(function(produto){
-        return produto.amount
-    })
-
-    var value1 = parseInt(foundAmountHome.amount);
-    var value2 = parseInt(foundAmount.amount);
-    const totalAmount = value1 - value2;
-
-    const dbProduto = getLocalStorageProduto()
-    dbProduto.push(totalAmount).amount;
-    setLocalStorageProduto(dbProduto)
-
-    console.log(totalAmount) 
-}*/
-
 const isValidFields = () => {
   return document.getElementById("form").reportValidity();
 };
 
-const saveProduct = (e) => {
-  e.preventDefault();
+const saveProduct = () => {
   if (isValidFields()) {
-    const produto = {
-      product: select.value,
-      amount: amountValue.value,
+    const selectedProduct = select.value;
+    const selectedAmount = parseInt(amountValue.value);
+
+    const product = {
+      product: selectedProduct,
+      amount: selectedAmount,
       unit: unitPrice.value,
       tax: parseFloat(taxValue.value),
-      total: parseFloat(unitPrice.value * amountValue.value),
+      total: parseFloat(unitPrice.value * selectedAmount),
     };
-    const index = parseInt(document.getElementById("select").dataset.index);
-    if (isNaN(index)) {
-      createProduct(produto);
-    } else {
-      updateProduto(index, produto);
+
+    const availableStock = produtos.find(
+      (produto) => produto.product === selectedProduct
+    )?.amount;
+    if (selectedAmount >= availableStock) {
+      alert(`Quantidade disponível para ${selectedProduct}: ${availableStock}`);
+      return;
     }
 
+    const updatedStock = availableStock - selectedAmount;
+    produtos.find((produto) => produto.product === selectedProduct).amount =
+      updatedStock;
+    setLocalStorageProduto(produtos);
+
+    const index = parseInt(select.dataset.index);
+    if (isNaN(index)) {
+      createProduct(product);
+    } else {
+      updateProduto(index, product);
+    }
+
+    updateTotalAndTaxFields();
     updateTable();
     clearFields();
   }
 };
+
+const checkStockAndUpdate = () => {
+  const selectedProduct = select.value;
+  const selectedAmount = parseInt(amountValue.value);
+  const productIndex = produtos.findIndex(
+    (produto) => produto.product === selectedProduct
+  );
+
+  if (productIndex !== -1) {
+    const availableStock = parseInt(produtos[productIndex].amount);
+    if (selectedAmount > availableStock) {
+      alert(`Quantidade disponível para ${selectedProduct}: ${availableStock}`);
+      return false; 
+    }
+    if (selectedAmount <= 0) {
+      alert("Insira um valor positivo por favor!!");
+      return false;
+    } else {
+      produtos[productIndex].amount - selectedAmount; 
+      setLocalStorageProduto(produtos); 
+      return true; 
+    }
+  }
+  return false; 
+};
+
+console.log(saveProduct());
 
 const createRow = (produto, index) => {
   const newRow = document.createElement("tr");
@@ -223,6 +216,33 @@ const clearTable = () => {
   rows.forEach((row) => row.remove());
 };
 
+const deleteTable = (index) => {
+  const dbHome = readProduct();
+  dbHome.splice(index);
+  setLocalStorage(dbHome);
+
+  clearTable();
+};
+
+const finishCarrinho = () => {
+  const dbHome = getLocalStorage();
+  const taxFinal = calculateTotalAndTax();
+  const dbCarrinho = getLocalStorageCarrinho();
+
+  dbHome.push(taxFinal);
+
+  if (dbHome == 0) {
+    alert("Faça alguma compra antes de finalizar");
+  } else {
+    dbCarrinho.push(dbHome);
+    setLocalStorageCarrinho(dbCarrinho);
+    alert("Compra realizada com sucesso!!!");
+  }
+
+  deleteTable();
+  clearTable();
+};
+
 const fillFields = (produto) => {
   document.getElementById("select").value = produto.product;
   document.getElementById("amount").value = produto.amount;
@@ -250,11 +270,13 @@ const editDelete = (event) => {
     if (action === "editar") {
       editProduct(index);
     } else if (action === "excluir") {
+      updateTotalAndTaxFields();
       const product = readProduct()[index];
       const response = confirm(
         `Deseja realmente excluir o produto ${product.product}`
       );
       if (response) {
+        updateTotalAndTaxFields();
         deleteProduto(index);
         updateTable();
       }
@@ -264,7 +286,17 @@ const editDelete = (event) => {
 
 updateTable();
 
-document.getElementById("salvar").addEventListener("click", saveProduct);
+document.getElementById("salvar").addEventListener("click", () => {
+  if (checkStockAndUpdate()) {
+    saveProduct(event);
+    updateTotalAndTaxFields(); 
+  }
+});
+
+
+document
+  .getElementById("compra")
+  .addEventListener("input", updateTotalAndTaxFields);
 
 document
   .getElementById("crudTable")
@@ -274,9 +306,20 @@ document
 document
   .getElementById("cancel")
   .addEventListener("click", clearTable && deleteTable);
+
+document
+  .getElementById("cancel")
+  .addEventListener("click", updateTotalAndTaxFields);
+
 document
   .getElementById("finish")
   .addEventListener("click", clearTable && finishCarrinho);
+
+document
+  .getElementById("finish")
+  .addEventListener("click", updateTotalAndTaxFields);
+
+updateTotalAndTaxFields();
 
 window.onload = function () {
   document.getElementById("unit-price").readOnly = true;
