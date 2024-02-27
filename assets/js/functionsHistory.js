@@ -1,25 +1,32 @@
-const getHistory = () => JSON.parse(localStorage.getItem('db_category')) ?? [];
-const setHistory = (history) => localStorage.setItem('db_category', JSON.stringify(history));
+const getHistory = () => JSON.parse(localStorage.getItem('db_carrinho')) || [];
 
-const renderHistory = () => {
+const setHistory = (history) => localStorage.setItem('db_carrinho', JSON.stringify(history));
+
+const renderSummary = () => {
   const history = getHistory();
   const tbody = document.querySelector('tbody');
   tbody.innerHTML = '';
 
-  history.forEach((item) => {
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-    <td>${item.index}</td>
-    <td>${item.tax}</td>
-    <td>${item.total}</td>
-    <td>
-    <button>
-    <a href="view-details.html?item=${item.id}" class="secundary-button">Detalhes
-    </button>
-    </td>
+  history.forEach((innerArray, index) => {
+    const summaryRow = document.createElement('tr');
+    summaryRow.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${innerArray.length} items</td>
+      <td>
+        <button onclick="showDetails(${index})">Ver detalhes</button>
+      </td>
     `;
-    tbody.appendChild(newRow);
+    tbody.appendChild(summaryRow);
   });
 };
 
-renderHistory();
+const showDetails = (index) => {
+  const history = getHistory();
+  const selectedArray = history[index];
+  localStorage.setItem('selectedArray', JSON.stringify(selectedArray));
+  window.location.href = 'produtoView.html'; 
+};
+
+renderSummary();
+
+
