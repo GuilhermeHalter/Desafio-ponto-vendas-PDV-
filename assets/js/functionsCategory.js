@@ -119,6 +119,31 @@ const editDelete = (event) => {
   }
 };
 
+document.querySelectorAll('input[type="number"]').forEach(function(input) {
+  input.addEventListener("input", function() {
+    this.value = this.value.replace(/[^0-9.]/g, ''); 
+  });
+});
+
+document.querySelectorAll('input[type="text"]').forEach(function(input) {
+  input.addEventListener("input", function() {
+    this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, ''); 
+    if (this.value.length > 25) {
+      this.value = this.value.substring(0, 25); 
+    }
+  });
+});
+
+document.querySelectorAll('select').forEach(function(select) {
+  select.addEventListener("change", function() {
+    if (!this.value) {
+      this.selectedIndex = -1; 
+    }
+  });
+});
+
+
+
 updateTable();
 
 document.getElementById("salvar").addEventListener("click", saveCategory);
