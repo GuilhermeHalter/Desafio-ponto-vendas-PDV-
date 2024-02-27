@@ -35,7 +35,6 @@ produtos.forEach(function (produto) {
   select.appendChild(option);
 });
 
-
 const calculateTotalAndTax = () => {
   const cart = getLocalStorage();
 
@@ -51,7 +50,6 @@ const updateTotalAndTaxFields = () => {
     2
   )}`;
 };
-
 
 select.addEventListener("change", function () {
   var selectedProductName = this.value;
@@ -169,18 +167,18 @@ const checkStockAndUpdate = () => {
     const availableStock = parseInt(produtos[productIndex].amount);
     if (selectedAmount > availableStock) {
       alert(`Quantidade disponível para ${selectedProduct}: ${availableStock}`);
-      return false; 
+      return false;
     }
     if (selectedAmount <= 0) {
       alert("Insira um valor positivo por favor!!");
       return false;
     } else {
-      produtos[productIndex].amount - selectedAmount; 
-      setLocalStorageProduto(produtos); 
-      return true; 
+      produtos[productIndex].amount - selectedAmount;
+      setLocalStorageProduto(produtos);
+      return true;
     }
   }
-  return false; 
+  return false;
 };
 
 console.log(saveProduct());
@@ -289,10 +287,9 @@ updateTable();
 document.getElementById("salvar").addEventListener("click", () => {
   if (checkStockAndUpdate()) {
     saveProduct(event);
-    updateTotalAndTaxFields(); 
+    updateTotalAndTaxFields();
   }
 });
-
 
 document
   .getElementById("compra")
