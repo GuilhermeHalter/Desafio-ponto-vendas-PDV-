@@ -75,10 +75,10 @@ const saveProduct = (e) => {
 const createRow = (produto, index) => {
   const newRow = document.createElement("tr");
   newRow.innerHTML = `
-      <td>${produto.product}</td>
-      <td>${produto.amount}</td>
-      <td>R$${produto.unit}</td>
-      <td>${produto.category}</td>
+      <td id="categoryName" onchange="verifyCategory()">${produto.product}</td>
+      <td id="AmountNameValue" onchange="verifyAmount()">${produto.amount}</td>
+      <td id="UnitNameValue" onchange="verifyUnit()" >${produto.unit}</td>
+      <td id="categoryName" onchange="verifyCategory()">${produto.category}</td>
       <td>
         <button type="button" class="button green" id="editar-${index}">Editar</button>
         <button type="button" class="button red" id="excluir-${index}">Excluir</button>
@@ -88,6 +88,93 @@ const createRow = (produto, index) => {
     .getElementById("crudTable")
     .querySelector("tbody")
     .appendChild(newRow);
+
+
+    function verifyCategory(cell) {
+      return new Promise((resolve, reject) => {
+        const content = cell.innerHTML.trim();
+        if (/[^a-zA-ZÀ-ÿ\s]/g.test(content)) {
+          reject("Categoria inválida: apenas letras e espaços são permitidos.");
+          cell.innerHTML = "Categoria inválida";
+          alert("Categoria Invalida")
+          deleteProduto(index, -1)
+          updateTable()
+          
+        } else {
+          resolve("Categoria válida.");
+        }
+      });
+    }
+    
+    function verifyAmount(cell) {
+      return new Promise((resolve, reject) => {
+        const content = cell.innerHTML.trim();
+        if (!/^\d+(\.\d+)?$/.test(content)) {
+          reject("Amount inválida: apenas números são permitidos.");
+          cell.innerHTML = "Amount inválido";
+          alert("Amount Invalido (apenas números são permitidos)")
+          deleteProduto(index, -1)
+          updateTable()
+        } else {
+          resolve("Amount válido.");
+        }
+      });
+    }
+
+    function verifyUnit(cell) {
+      return new Promise((resolve, reject) => {
+        const content = cell.innerHTML.trim();
+        if (!/^\d+(\.\d+)?$/.test(content)) {
+          reject("Unit price inválida: apenas números são permitidos.");
+          cell.innerHTML = "Unit price inválido";
+          alert("Unit price Invalido (apenas números são permitidos)")
+          deleteProduto(index, -1)
+          updateTable()
+        } else {
+          resolve("Unit price válido.");
+        }
+      });
+    }
+
+
+    
+    
+    const rows = document.querySelectorAll("#crudTable tbody tr");
+    
+    rows.forEach((row) => {
+      const categoryCell = row.querySelector('td#categoryName');
+      const AmountCell = row.querySelector('td#AmountNameValue');
+      const UnitCell = row.querySelector('td#UnitNameValue');
+    
+      if (categoryCell) {
+        verifyCategory(categoryCell)
+          .then((data) => {
+          })
+          .catch((error) => {
+          });
+      }
+    
+      if (AmountCell) {
+        verifyAmount(AmountCell)
+          .then((data) => {
+          })
+          .catch((error) => {
+          });
+      }
+
+      if (UnitCell) {
+        verifyUnit(UnitCell)
+          .then((data) => {
+          })
+          .catch((error) => {
+          });
+      }
+    });
+    
+
+
+
+
 };
 
 const clearFields = () => {

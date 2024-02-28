@@ -138,10 +138,6 @@ const saveProduct = () => {
       return;
     }
 
-    const updatedStock = availableStock - selectedAmount;
-    produtos.find((produto) => produto.product === selectedProduct).amount =
-      updatedStock;
-    setLocalStorageProduto(produtos);
 
     const index = parseInt(select.dataset.index);
     if (isNaN(index)) {
@@ -182,26 +178,129 @@ const checkStockAndUpdate = () => {
 };
 
 console.log(saveProduct());
-
 const createRow = (produto, index) => {
   const newRow = document.createElement("tr");
   newRow.innerHTML = `
-  <td>${produto.product}</td>
-  <td>R$${produto.unit}</td>
-  <td id="amount-product">${produto.amount}</td>
-  <td>R$${produto.total}</td>
-  
-  <td>
-    <button type="button" class="button green" id="editar-${index}">Editar</button>
-    <button type="button" class="button red" id="excluir-${index}">Excluir</button>
-  </td>
-  `;
+    <td>${produto.product}</td>
+    <td>${produto.amount}</td>
+    <td>${produto.unit}</td>
+    <td>${produto.total}</td>
+    <td>
+      <button type="button" class="button green" id="editar-${index}">Editar</button>
+      <button type="button" class="button red" id="excluir-${index}">Excluir</button>
+    </td>
+  `; 
 
-  document
-    .getElementById("crudTable")
-    .querySelector("tbody")
-    .appendChild(newRow);
+  document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);
+
+  // Verificar categoria
+  const categoryCell = newRow.querySelector('td:nth-child(1)');
+  verifyCategory(categoryCell, produto.product)
+    .catch((error) => {
+      console.error(error);
+      deleteProduto(index);
+      updateTable();
+    });
+
+  // Verificar quantidade
+  const amountCell = newRow.querySelector('td:nth-child(2)');
+  verifyAmount(amountCell, produto.amount)
+    .catch((error) => {
+      console.error(error);
+      deleteProduto(index);
+      updateTable();
+    });
+
+  // Verificar preço unitário
+  const unitCell = newRow.querySelector('td:nth-child(3)');
+  verifyUnit(unitCell, produto.unit)
+    .catch((error) => {
+      console.error(error);
+      deleteProduto(index);
+      updateTable();
+    });
 };
+
+
+function verifyCategory(cell, content) {
+  return new Promise((resolve, reject) => {
+    if (/[^a-zA-ZÀ-ÿ\s]/g.test(content)) {
+      reject("Categoria inválida: apenas letras e espaços são permitidos.");
+      cell.innerHTML = "Categoria inválida";
+      alert("Categoria inválida: apenas letras e espaços são permitidos.")
+    } else {
+      resolve("Categoria válida.");
+    }
+  });
+}
+
+function verifyAmount(cell, content) {
+  return new Promise((resolve, reject) => {
+    if (!/^\d+(\.\d+)?$/.test(content)) {
+      reject("Quantidade inválida: apenas números são permitidos.");
+      cell.innerHTML = "Quantidade inválida";
+      alert("Quantidade inválida: apenas números são permitidos.")
+    } else {
+      resolve("Quantidade válida.");
+    }
+  });
+}
+
+function verifyUnit(cell, content) {
+  return new Promise((resolve, reject) => {
+    if (!/^\d+(\.\d+)?$/.test(content)) {
+      reject("Preço unitário inválido: apenas números são permitidos.");
+      cell.innerHTML = "Preço unitário inválido";
+      alert("Preço unitário inválido: apenas números são permitidos.")
+    } else {
+      resolve("Preço unitário válido.");
+    }
+  });
+
+
+}
+
+
+  
+  
+  const rows = document.querySelectorAll("#crudTable tbody tr");
+  
+  rows.forEach((row) => {
+    const categoryCell = row.querySelector('td#categoryName');
+    const AmountCell = row.querySelector('td#AmountNameValue');
+    const UnitCell = row.querySelector('td#UnitNameValue');
+  
+    if (categoryCell) {
+      verifyCategory(categoryCell)
+        .then((data) => {
+        })
+        .catch((error) => {
+        });
+    }
+  
+    if (AmountCell) {
+      verifyAmount(AmountCell)
+        .then((data) => {
+        })
+        .catch((error) => {
+        });
+    }
+
+    if (UnitCell) {
+      verifyUnit(UnitCell)
+        .then((data) => {
+        })
+        .catch((error) => {
+        });
+    }
+
+ 
+  });
+  
+
+
+
+ 
 
 const clearFields = () => {
   const fields = document.querySelectorAll(".modal-field");
