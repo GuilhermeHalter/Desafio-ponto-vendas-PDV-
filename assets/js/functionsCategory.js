@@ -51,25 +51,87 @@ const saveCategory = (e) => {
       updateCategory(index, categoria);
     }
 
+
     updateTable();
     clearFields();
   }
 };
 
+
 const createRow = (categoria, index) => {
   const newRow = document.createElement("tr");
   newRow.innerHTML = `
-      <td>${categoria.category}</td>
-      <td>${categoria.tax}%</td>
+      <td id="categoryName" onchange="verifyCategory()">${categoria.category}</td>
+      <td id="TaxNameValue" onchange="verifyTax()">${categoria.tax}</td>
       <td>
         <button type="button" class="button green" id="editar-${index}">Editar</button>
         <button type="button" class="button red" id="excluir-${index}">Excluir</button>
       </td>
       `;
+    
+
   document
     .getElementById("crudTable")
     .querySelector("tbody")
-    .appendChild(newRow);
+    .appendChild(newRow);  
+    
+    function verifyCategory(cell) {
+      return new Promise((resolve, reject) => {
+        const content = cell.innerHTML.trim();
+        if (/[^a-zA-ZÀ-ÿ\s]/g.test(content)) {
+          reject("Categoria inválida: apenas letras e espaços são permitidos.");
+          cell.innerHTML = "Categoria inválida";
+          alert("Categoria Invalida")
+          deleteCategory(index, -1)
+          updateTable()
+          
+        } else {
+          resolve("Categoria válida.");
+        }
+      });
+    }
+    
+    function verifyTax(cell) {
+      return new Promise((resolve, reject) => {
+        const content = cell.innerHTML.trim();
+        if (!/^\d+(\.\d+)?$/.test(content)) {
+          reject("Taxa inválida: apenas números são permitidos.");
+          cell.innerHTML = "Taxa inválida";
+          alert("Taxa Invalida")
+          deleteCategory(index, -1)
+          updateTable()
+        } else {
+          resolve("Taxa válida.");
+        }
+      });
+    }
+
+    
+    
+    const rows = document.querySelectorAll("#crudTable tbody tr");
+    
+    rows.forEach((row) => {
+      const categoryCell = row.querySelector('td#categoryName');
+      const taxCell = row.querySelector('td#TaxNameValue');
+    
+      if (categoryCell) {
+        verifyCategory(categoryCell)
+          .then((data) => {
+          })
+          .catch((error) => {
+          });
+      }
+    
+      if (taxCell) {
+        verifyTax(taxCell)
+          .then((data) => {
+          })
+          .catch((error) => {
+          });
+      }
+    });
+    
+    
 };
 
 const clearFields = () => {
@@ -128,11 +190,14 @@ document.querySelectorAll('input[type="number"]').forEach(function(input) {
 document.querySelectorAll('input[type="text"]').forEach(function(input) {
   input.addEventListener("input", function() {
     this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, ''); 
-    if (this.value.length > 25) {
-      this.value = this.value.substring(0, 25); 
+    if (this.value.length > 20) {
+      this.value = this.value.substring(0, 20); 
     }
   });
 });
+
+document.querySelectorAll('td').forEach,
+  
 
 document.querySelectorAll('select').forEach(function(select) {
   select.addEventListener("change", function() {
@@ -144,7 +209,19 @@ document.querySelectorAll('select').forEach(function(select) {
 
 
 
+var cells = document.querySelectorAll('td');
+
+cells.forEach(function(cell) {
+    var content = cell.textContent;
+    if (/[^a-zA-Z0-9]/.test(content)) {
+        cell.textContent = '';
+    }
+});
+
+
+
 updateTable();
+
 
 document.getElementById("salvar").addEventListener("click", saveCategory);
 
@@ -152,3 +229,4 @@ document
   .getElementById("crudTable")
   .querySelector("tbody")
   .addEventListener("click", editDelete);
+
