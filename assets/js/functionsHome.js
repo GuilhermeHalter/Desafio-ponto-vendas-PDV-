@@ -193,7 +193,6 @@ const createRow = (produto, index) => {
 
   document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);
 
-  // Verificar categoria
   const categoryCell = newRow.querySelector('td:nth-child(1)');
   verifyCategory(categoryCell, produto.product)
     .catch((error) => {
@@ -202,7 +201,6 @@ const createRow = (produto, index) => {
       updateTable();
     });
 
-  // Verificar quantidade
   const amountCell = newRow.querySelector('td:nth-child(2)');
   verifyAmount(amountCell, produto.amount)
     .catch((error) => {
@@ -211,7 +209,6 @@ const createRow = (produto, index) => {
       updateTable();
     });
 
-  // Verificar preço unitário
   const unitCell = newRow.querySelector('td:nth-child(3)');
   verifyUnit(unitCell, produto.unit)
     .catch((error) => {
