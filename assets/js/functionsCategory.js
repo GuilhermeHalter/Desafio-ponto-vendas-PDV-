@@ -60,20 +60,40 @@ const saveCategory = (e) => {
 
 const createRow = (categoria, index) => {
   const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-      <td id="categoryName" onchange="verifyCategory()">${categoria.category}</td>
-      <td id="TaxNameValue" onchange="verifyTax()">${categoria.tax}</td>
-      <td>
-        <button type="button" class="button green" id="editar-${index}">Editar</button>
-        <button type="button" class="button red" id="excluir-${index}">Excluir</button>
-      </td>
-      `;
-    
 
-  document
-    .getElementById("crudTable")
-    .querySelector("tbody")
-    .appendChild(newRow);  
+  const td1 = document.createElement("td");
+  td1.textContent = categoria.category;
+
+  const td2 = document.createElement("td");
+  td2.textContent = categoria.tax;
+  td2.id = "categoryName"
+  td2.onchange = verifyCategory()
+
+  const td3 = document.createElement("td");
+  const editarButton = document.createElement("button");
+  editarButton.type = "button";
+  editarButton.className = "button green";
+  editarButton.id = `editar-${index}`;
+  editarButton.textContent = "Editar";
+
+  const excluirButton = document.createElement("button");
+  excluirButton.type = "button";
+  excluirButton.className = "button red";
+  excluirButton.id = `excluir-${index}`;
+  excluirButton.textContent = "Excluir";
+
+  td3.appendChild(editarButton);
+  td3.appendChild(excluirButton);
+
+  newRow.appendChild(td1);
+  newRow.appendChild(td2);
+  newRow.appendChild(td3);
+
+  document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);
+
+
+};
+
     
     function verifyCategory(cell) {
       return new Promise((resolve, reject) => {
@@ -131,8 +151,6 @@ const createRow = (categoria, index) => {
       }
     });
     
-    
-};
 
 const clearFields = () => {
   const fields = document.querySelectorAll(".modal-field");

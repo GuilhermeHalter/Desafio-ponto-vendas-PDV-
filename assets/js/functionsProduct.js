@@ -74,20 +74,45 @@ const saveProduct = (e) => {
 
 const createRow = (produto, index) => {
   const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-      <td id="categoryName" onchange="verifyCategory()">${produto.product}</td>
-      <td id="AmountNameValue" onchange="verifyAmount()">${produto.amount}</td>
-      <td id="UnitNameValue" onchange="verifyUnit()" >${produto.unit}</td>
-      <td id="categoryName" onchange="verifyCategory()">${produto.category}</td>
-      <td>
-        <button type="button" class="button green" id="editar-${index}">Editar</button>
-        <button type="button" class="button red" id="excluir-${index}">Excluir</button>
-      </td>
-      `;
-  document
-    .getElementById("crudTable")
-    .querySelector("tbody")
-    .appendChild(newRow);
+
+  const td1 = document.createElement("td");
+  td1.textContent = produto.product;
+
+  const td2 = document.createElement("td");
+  td2.textContent = produto.amount;
+
+  const td3 = document.createElement("td");
+  td3.textContent = produto.unit;
+
+  const td4 = document.createElement("td");
+  td4.textContent = produto.category;
+
+  const td5 = document.createElement("td");
+  const editarButton = document.createElement("button");
+  editarButton.type = "button";
+  editarButton.className = "button green";
+  editarButton.id = `editar-${index}`;
+  editarButton.textContent = "Editar";
+
+  const excluirButton = document.createElement("button");
+  excluirButton.type = "button";
+  excluirButton.className = "button red";
+  excluirButton.id = `excluir-${index}`;
+  excluirButton.textContent = "Excluir";
+
+  td5.appendChild(editarButton);
+  td5.appendChild(excluirButton);
+
+  newRow.appendChild(td1);
+  newRow.appendChild(td2);
+  newRow.appendChild(td3);
+  newRow.appendChild(td4);
+  newRow.appendChild(td5);
+
+  document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);
+
+
+};
 
 
     function verifyCategory(cell) {
@@ -170,12 +195,7 @@ const createRow = (produto, index) => {
           });
       }
     });
-    
 
-
-
-
-};
 
 const clearFields = () => {
   const fields = document.querySelectorAll(".modal-field");

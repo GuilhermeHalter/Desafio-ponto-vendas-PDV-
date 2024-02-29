@@ -180,20 +180,44 @@ const checkStockAndUpdate = () => {
 console.log(saveProduct());
 const createRow = (produto, index) => {
   const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-    <td>${produto.product}</td>
-    <td>${produto.amount}</td>
-    <td>${produto.unit}</td>
-    <td>${produto.total}</td>
-    <td>
-      <button type="button" class="button green" id="editar-${index}">Editar</button>
-      <button type="button" class="button red" id="excluir-${index}">Excluir</button>
-    </td>
-  `; 
+
+  const td1 = document.createElement("td");
+  td1.textContent = produto.product;
+
+  const td2 = document.createElement("td");
+  td2.textContent = produto.amount;
+
+  const td3 = document.createElement("td");
+  td3.textContent = produto.unit;
+
+  const td4 = document.createElement("td");
+  td4.textContent = produto.total;
+
+  const td5 = document.createElement("td");
+  const editarButton = document.createElement("button");
+  editarButton.type = "button";
+  editarButton.className = "button green";
+  editarButton.id = `editar-${index}`;
+  editarButton.textContent = "Editar";
+
+  const excluirButton = document.createElement("button");
+  excluirButton.type = "button";
+  excluirButton.className = "button red";
+  excluirButton.id = `excluir-${index}`;
+  excluirButton.textContent = "Excluir";
+
+  td5.appendChild(editarButton);
+  td5.appendChild(excluirButton);
+
+  newRow.appendChild(td1);
+  newRow.appendChild(td2);
+  newRow.appendChild(td3);
+  newRow.appendChild(td4);
+  newRow.appendChild(td5);
 
   document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);
 
-  const categoryCell = newRow.querySelector('td:nth-child(1)');
+const categoryCell = newRow.querySelector('td:nth-child(1)');
   verifyCategory(categoryCell, produto.product)
     .catch((error) => {
       console.error(error);
@@ -201,7 +225,7 @@ const createRow = (produto, index) => {
       updateTable();
     });
 
-  const amountCell = newRow.querySelector('td:nth-child(2)');
+    const amountCell = newRow.querySelector('td:nth-child(2)');
   verifyAmount(amountCell, produto.amount)
     .catch((error) => {
       console.error(error);
@@ -218,6 +242,10 @@ const createRow = (produto, index) => {
     });
 };
 
+
+  
+
+  
 
 function verifyCategory(cell, content) {
   return new Promise((resolve, reject) => {
