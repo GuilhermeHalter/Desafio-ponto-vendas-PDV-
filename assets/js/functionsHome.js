@@ -109,15 +109,21 @@ const updateProduto = (index, product) => {
 
 const deleteProduto = (index) => {
   const dbHome = readProduct();
+  const product = dbHome[index];
+  const amount = product.amount;
   dbHome.splice(index, 1);
   setLocalStorage(dbHome);
+
+
+  subtrctFromProduct(product, -amount);
 };
+
 
 const isValidFields = () => {
   return document.getElementById("form").reportValidity();
 };
 
-const saveProduct = () => {
+const saveProduct = (e) => {
   if (isValidFields()) {
     const selectedProduct = select.value;
     const selectedAmount = parseInt(amountValue.value);
@@ -130,70 +136,62 @@ const saveProduct = () => {
       total: parseFloat(unitPrice.value * selectedAmount),
     };
 
-    const availableStock = produtos.find(
-      (produto) => produto.product === selectedProduct
-    )?.amount;
-    if (selectedAmount >= availableStock) {
-      alert(`Quantidade disponível para ${selectedProduct}: ${availableStock}`);
-      return;
+    if (subtrctFromProduct(product, selectedAmount)) {
+      const index = parseInt(select.dataset.index);
+      if (isNaN(index)) {
+        createProduct(product);
+      } else {
+        updateProduto(index, product);
+      }
+
+      updateTotalAndTaxFields();
+      updateTable();
+      clearFields();
     }
-
-
-    const index = parseInt(select.dataset.index);
-    if (isNaN(index)) {
-      createProduct(product);
-    } else {
-      updateProduto(index, product);
-    }
-
-    updateTotalAndTaxFields();
-    updateTable();
-    clearFields();
   }
 };
 
-const checkStockAndUpdate = () => {
-  const selectedProduct = select.value;
-  const selectedAmount = parseInt(amountValue.value);
-  const productIndex = produtos.findIndex(
-    (produto) => produto.product === selectedProduct
-  );
+const subtrctFromProduct = (product, amount) => {
+  const products = getLocalStorageProduto();
+  const existingProduct = products.find(p => p.product === product.product);
 
-  if (productIndex !== -1) {
-    const availableStock = parseInt(produtos[productIndex].amount);
-    if (selectedAmount > availableStock) {
-      alert(`Quantidade disponível para ${selectedProduct}: ${availableStock}`);
-      return false;
-    }
-    if (selectedAmount <= 0) {
-      alert("Insira um valor positivo por favor!!");
-      return false;
-    } else {
-      produtos[productIndex].amount - selectedAmount;
-      setLocalStorageProduto(produtos);
-      return true;
-    }
+  if (existingProduct && existingProduct.amount >= amount) {
+    existingProduct.amount -= amount;
+    setLocalStorageProduto(products);
+    return true; 
+  } else {
+    alert("Quantidade insuficiente em estoque");
+    return false; 
   }
-  return false;
 };
+
 
 console.log(saveProduct());
 const createRow = (produto, index) => {
+
+  
   const newRow = document.createElement("tr");
 
   const td1 = document.createElement("td");
   td1.textContent = produto.product;
 
   const td2 = document.createElement("td");
-  td2.textContent = produto.amount;
+  td2.textContent = produto.unit;
 
+
+  
   const td3 = document.createElement("td");
-  td3.textContent = produto.unit;
+  td3.textContent = produto.amount;
 
+  
   const td4 = document.createElement("td");
   td4.textContent = produto.total;
 
+
+
   const td5 = document.createElement("td");
+
+  
   const editarButton = document.createElement("button");
   editarButton.type = "button";
   editarButton.className = "button green";
@@ -215,117 +213,40 @@ const createRow = (produto, index) => {
   newRow.appendChild(td4);
   newRow.appendChild(td5);
 
-  document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);
+  document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);  
+  
+  if(td2.textContent <= 0){
+    alert("Valor unitario invalido (valor negativo ou 0, não permitido)")
+    deleteProduto(index);
+    updateTable();
+  }
 
-const categoryCell = newRow.querySelector('td:nth-child(1)');
-  verifyCategory(categoryCell, produto.product)
-    .catch((error) => {
-      console.error(error);
+  if (/[a-zA-ZÀ-ÿ\s]/g.test(td2.textContent)){
+    alert("Valor unitario invalido (Letra inserida, apenas numeros são permitidos)")
+    deleteProduto(index);
+    updateTable();
+  }
+
+  if(td3.textContent <= 0){
+      alert("Quantidade invalida (valor negativo não permitido)")
       deleteProduto(index);
       updateTable();
-    });
+  }
 
-    const amountCell = newRow.querySelector('td:nth-child(2)');
-  verifyAmount(amountCell, produto.amount)
-    .catch((error) => {
-      console.error(error);
-      deleteProduto(index);
-      updateTable();
-    });
+  if (/[a-zA-ZÀ-ÿ\s]/g.test(td3.textContent)){
+    alert("Quantidade invalida (Letra inserida, apenas numeros são permitidos)")
+    deleteProduto(index);
+    updateTable();
+  }
 
-  const unitCell = newRow.querySelector('td:nth-child(3)');
-  verifyUnit(unitCell, produto.unit)
-    .catch((error) => {
-      console.error(error);
-      deleteProduto(index);
-      updateTable();
-    });
+  if(td4.textContent <= 0){
+    alert("total invalido (valor negativo não permitido)")
+    deleteProduto(index);
+    updateTable();
+  }
+  
+
 };
-
-
-  
-
-  
-
-function verifyCategory(cell, content) {
-  return new Promise((resolve, reject) => {
-    if (/[^a-zA-ZÀ-ÿ\s]/g.test(content)) {
-      reject("Categoria inválida: apenas letras e espaços são permitidos.");
-      cell.innerHTML = "Categoria inválida";
-      alert("Categoria inválida: apenas letras e espaços são permitidos.")
-    } else {
-      resolve("Categoria válida.");
-    }
-  });
-}
-
-function verifyAmount(cell, content) {
-  return new Promise((resolve, reject) => {
-    if (!/^\d+(\.\d+)?$/.test(content)) {
-      reject("Quantidade inválida: apenas números são permitidos.");
-      cell.innerHTML = "Quantidade inválida";
-      alert("Quantidade inválida: apenas números são permitidos.")
-    } else {
-      resolve("Quantidade válida.");
-    }
-  });
-}
-
-function verifyUnit(cell, content) {
-  return new Promise((resolve, reject) => {
-    if (!/^\d+(\.\d+)?$/.test(content)) {
-      reject("Preço unitário inválido: apenas números são permitidos.");
-      cell.innerHTML = "Preço unitário inválido";
-      alert("Preço unitário inválido: apenas números são permitidos.")
-    } else {
-      resolve("Preço unitário válido.");
-    }
-  });
-
-
-}
-
-
-  
-  
-  const rows = document.querySelectorAll("#crudTable tbody tr");
-  
-  rows.forEach((row) => {
-    const categoryCell = row.querySelector('td#categoryName');
-    const AmountCell = row.querySelector('td#AmountNameValue');
-    const UnitCell = row.querySelector('td#UnitNameValue');
-  
-    if (categoryCell) {
-      verifyCategory(categoryCell)
-        .then((data) => {
-        })
-        .catch((error) => {
-        });
-    }
-  
-    if (AmountCell) {
-      verifyAmount(AmountCell)
-        .then((data) => {
-        })
-        .catch((error) => {
-        });
-    }
-
-    if (UnitCell) {
-      verifyUnit(UnitCell)
-        .then((data) => {
-        })
-        .catch((error) => {
-        });
-    }
-
- 
-  });
-  
-
-
-
- 
 
 const clearFields = () => {
   const fields = document.querySelectorAll(".modal-field");
@@ -433,11 +354,12 @@ document.querySelectorAll('select').forEach(function(select) {
 updateTable();
 
 document.getElementById("salvar").addEventListener("click", () => {
-  if (checkStockAndUpdate()) {
     saveProduct(event);
     updateTotalAndTaxFields();
-  }
+    subtrctFromProduct();
 });
+
+
 
 document
   .getElementById("compra")

@@ -111,7 +111,37 @@ const createRow = (produto, index) => {
 
   document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);
 
+  if (/[0-9]/g.test(td1.textContent)){
+    alert("Categoria invalida (Numero inserido, apenas letras são permitidas)")
+    deleteProduto(index);
+    updateTable();
+  }
 
+  if(td2.textContent <= -1){
+    alert("Quantidade invalida (valor negativo não permitido)")
+    deleteProduto(index);
+    updateTable();
+  }
+
+  if (/[a-zA-ZÀ-ÿ\s]/g.test(td2.textContent)){
+    alert("Quantidade invalida (Letra inserida, apenas numeros são permitidos)")
+    deleteProduto(index);
+    updateTable();
+  }
+
+  if(td3.textContent <= -1){
+      alert("Valor unitario invalido (valor negativo não permitido)")
+      deleteProduto(index);
+      updateTable();
+  }
+
+  if (/[a-zA-ZÀ-ÿ\s]/g.test(td3.textContent)){
+    alert("Valor unitario invalido (Letra inserida, apenas numeros são permitidos)")
+    deleteProduto(index);
+    updateTable();
+  }
+
+  
 };
 
 
@@ -119,9 +149,9 @@ const createRow = (produto, index) => {
       return new Promise((resolve, reject) => {
         const content = cell.innerHTML.trim();
         if (/[^a-zA-ZÀ-ÿ\s]/g.test(content)) {
-          reject("Categoria inválida: apenas letras e espaços são permitidos.");
-          cell.innerHTML = "Categoria inválida";
-          alert("Categoria Invalida")
+          reject("Produto: apenas letras e espaços são permitidos.");
+          cell.innerHTML = "Produto inválido";
+          alert("Produto Invalido")
           deleteProduto(index, -1)
           updateTable()
           

@@ -67,7 +67,6 @@ const createRow = (categoria, index) => {
   const td2 = document.createElement("td");
   td2.textContent = categoria.tax;
   td2.id = "categoryName"
-  td2.onchange = verifyCategory()
 
   const td3 = document.createElement("td");
   const editarButton = document.createElement("button");
@@ -91,66 +90,20 @@ const createRow = (categoria, index) => {
 
   document.getElementById("crudTable").querySelector("tbody").appendChild(newRow);
 
+  if (/[0-9]/g.test(td1.textContent)){
+    alert("Categoria invalida (Numero inserido, apenas letras são permitidas)")
+    deleteCategory(index);
+    updateTable();
+  }
+  if (/[a-zA-ZÀ-ÿ\s]/g.test(td2.textContent)){
+    alert("Taxa invalida (Letra inserida, apenas numeros são permitidos)")
+    deleteCategory(index);
+    updateTable();
+  }
 
 };
 
-    
-    function verifyCategory(cell) {
-      return new Promise((resolve, reject) => {
-        const content = cell.innerHTML.trim();
-        if (/[^a-zA-ZÀ-ÿ\s]/g.test(content)) {
-          reject("Categoria inválida: apenas letras e espaços são permitidos.");
-          cell.innerHTML = "Categoria inválida";
-          alert("Categoria Invalida")
-          deleteCategory(index, -1)
-          updateTable()
-          
-        } else {
-          resolve("Categoria válida.");
-        }
-      });
-    }
-    
-    function verifyTax(cell) {
-      return new Promise((resolve, reject) => {
-        const content = cell.innerHTML.trim();
-        if (!/^\d+(\.\d+)?$/.test(content)) {
-          reject("Taxa inválida: apenas números são permitidos.");
-          cell.innerHTML = "Taxa inválida";
-          alert("Taxa Invalida")
-          deleteCategory(index, -1)
-          updateTable()
-        } else {
-          resolve("Taxa válida.");
-        }
-      });
-    }
 
-    
-    
-    const rows = document.querySelectorAll("#crudTable tbody tr");
-    
-    rows.forEach((row) => {
-      const categoryCell = row.querySelector('td#categoryName');
-      const taxCell = row.querySelector('td#TaxNameValue');
-    
-      if (categoryCell) {
-        verifyCategory(categoryCell)
-          .then((data) => {
-          })
-          .catch((error) => {
-          });
-      }
-    
-      if (taxCell) {
-        verifyTax(taxCell)
-          .then((data) => {
-          })
-          .catch((error) => {
-          });
-      }
-    });
-    
 
 const clearFields = () => {
   const fields = document.querySelectorAll(".modal-field");

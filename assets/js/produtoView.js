@@ -5,15 +5,32 @@ const renderDetails = () => {
 
   const lastItem = selectedArray.pop();
 
+  
   selectedArray.forEach((item) => {
     const detailRow = document.createElement("tr");
-    detailRow.innerHTML = `
-      <td>${item.product}</td>
-      <td>${item.amount}</td>
-      <td>R$${item.unit}</td>
-      <td>${item.tax}%</td>
-      <td>R$${item.total}</td>
-    `;
+
+    const td1 = document.createElement("td");
+    td1.textContent = item.product;
+  
+    const td2 = document.createElement("td");
+    td2.textContent = item.amount;
+  
+    const td3 = document.createElement("td");
+    td3.textContent = item.unit;
+
+    const td4 = document.createElement("td");
+    td4.textContent = item.tax;
+  
+    const td5 = document.createElement("td");
+    td5.textContent = item.total;
+  
+    detailRow.appendChild(td1);
+    detailRow.appendChild(td2);
+    detailRow.appendChild(td3);
+    detailRow.appendChild(td4);
+    detailRow.appendChild(td5);
+
+    document.getElementById("crudTable").querySelector("tbody").appendChild(detailRow);
     tbody.appendChild(detailRow);
     document.getElementById(
       "Total"
@@ -28,8 +45,12 @@ const renderDetails = () => {
     };`;
   });
 
+
+
   console.log("Última linha:", lastItem);
 };
+
+
 
 
 document.querySelectorAll('input[type="number"]').forEach(function(input) {
@@ -54,7 +75,5 @@ document.querySelectorAll('select').forEach(function(select) {
     }
   });
 });
-
-
 
 renderDetails();
